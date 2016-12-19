@@ -9,14 +9,14 @@ void fBullCowGame::Reset() {
 
 int fBullCowGame::GetMaxTries() {
 
-	return 0;
+	return MyMaxTries;
 
 }
 
 
 int fBullCowGame::GetCurrentTry() {
 
-	return 0;
+	return MyCurrentTry;
 
 }
 
