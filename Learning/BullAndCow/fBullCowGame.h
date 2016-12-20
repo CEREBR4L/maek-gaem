@@ -1,18 +1,33 @@
 #pragma once
 #include <string>
 
+using FString = std::string;
+using int32 = int;
+
+struct FBullCowCount {
+
+	int32 Bulls = 0;
+	int32 Cows = 0;
+
+};
+
 class fBullCowGame {
 
 public:
-	void Reset(); // todo make a more rich return vlaue
-	int GetMaxTries();
-	int GetCurrentTry();
-	bool IsGameWon();
-	bool CheckGuessValid(std::string);
+	fBullCowGame(); //constructor
 
+	int32 GetMaxTries() const;
+	int32 GetCurrentTry() const;
+	bool IsGameWon() const;
+
+	void Reset(); // todo make a more rich return vlaue
+	bool CheckGuessValid(FString);
+
+	FBullCowCount SubmitGuess(FString);
 
 private:
-	int MyCurrentTry = 1;
-	int MyMaxTries = 5; 
-
+	//initilised in contstructor
+	int32 MyCurrentTry;
+	int32 MyMaxTries;
+	FString MyHiddenWord;
 };
