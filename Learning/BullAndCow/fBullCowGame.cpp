@@ -1,4 +1,5 @@
 #include "fBullCowGame.h"
+#include <iostream>
 
 fBullCowGame::fBullCowGame() {
 
@@ -21,6 +22,13 @@ int32 fBullCowGame::GetCurrentTry() const {
 }
 
 
+int32 fBullCowGame::GetHiddenWordLength() const {
+
+	return MyHiddenWord.length();
+
+}
+
+
 bool fBullCowGame::IsGameWon() const {
 
 	return false;
@@ -31,9 +39,9 @@ bool fBullCowGame::IsGameWon() const {
 void fBullCowGame::Reset() {
 
 	constexpr int32 MAX_TRIES = 8;
-	MyMaxTries = MAX_TRIES;
+	const FString HIDDEN_WORD = "planet";
 
-	const FString HIDDEN_WORD = "ant";
+	MyMaxTries = MAX_TRIES;
 	MyHiddenWord = HIDDEN_WORD;
 
 	MyCurrentTry = 1;
@@ -42,9 +50,9 @@ void fBullCowGame::Reset() {
 }
 
 
-bool fBullCowGame::CheckGuessValid(FString) {
+eWordStatus fBullCowGame::CheckGuessValid(FString) const{
 
-	return false;
+	return eWordStatus::OK; //TODO make actual error
 
 }
 
@@ -59,13 +67,13 @@ FBullCowCount fBullCowGame::SubmitGuess(FString Guess) {
 	//loop  through all letters in guess
 	int32 HiddenWordLength = MyHiddenWord.length();
 
-	for(int32 i = 0; i < HiddenWordLength; i++){
+	for(int32 i = 0; i < HiddenWordLength; i++) {
 
-		for(int32 j = 0; j < HiddenWordLength; j++){
+		for(int32 j = 0; j < HiddenWordLength; j++) {
 
 			//compare letters against hidden word.
 			//if match incriment bulls if in the same place or cows if they are not.
-			if (Guess[i] == MyHiddenWord[i]) {
+			if (Guess[j] == MyHiddenWord[i]) {
 
 				if (i == j) {
 
