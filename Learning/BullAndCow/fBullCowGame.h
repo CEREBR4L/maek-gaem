@@ -11,7 +11,7 @@ struct FBullCowCount {
 
 };
 
-enum class eWordStatus {
+enum class eGuessStatus {
 
 	OK,
 	Not_Isogram,
@@ -31,7 +31,7 @@ public:
 
 	bool IsGameWon() const;
 
-	eWordStatus CheckGuessValid(FString) const;
+	eGuessStatus CheckGuessValid(FString) const;
 
 	void Reset(); // todo make a more rich return vlaue
 

@@ -50,9 +50,20 @@ void fBullCowGame::Reset() {
 }
 
 
-eWordStatus fBullCowGame::CheckGuessValid(FString) const{
+eGuessStatus fBullCowGame::CheckGuessValid(FString Guess) const{
 
-	return eWordStatus::OK; //TODO make actual error
+	if (false) {
+		return eGuessStatus::Not_Isogram;
+	}
+	else if (false) {
+		return eGuessStatus::Not_Lowercase;
+	}
+	else if (Guess.length() != GetHiddenWordLength()) {
+		return eGuessStatus::Incorrect_Length;
+	}
+	else {
+		return eGuessStatus::OK;
+	}
 
 }
 
