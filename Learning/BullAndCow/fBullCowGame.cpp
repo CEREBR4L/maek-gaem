@@ -1,6 +1,9 @@
 #include "fBullCowGame.h"
 #include <iostream>
 
+#include <map>
+#define TMap std::map
+
 fBullCowGame::fBullCowGame() {
 
 	Reset();
@@ -53,11 +56,11 @@ void fBullCowGame::Reset() {
 
 eGuessStatus fBullCowGame::CheckGuessValid(FString Guess) const{
 
-	if (false) {
+	if (!IsIsogram(Guess)) {
 		return eGuessStatus::Not_Isogram;
 	}
 	else if (false) {
-		return eGuessStatus::Not_Lowercase;
+		return eGuessStatus::Not_Lowercase; //TODO write function for this case
 	}
 	else if (Guess.length() != GetHiddenWordLength()) {
 		return eGuessStatus::Incorrect_Length;
@@ -112,6 +115,32 @@ FBullCowCount fBullCowGame::SubmitValidGuess(FString Guess) {
 	}
 	
 	return BullCowCount;
+
+}
+
+bool fBullCowGame::IsIsogram(FString Word) const {
+
+	//trat 0/1 letter strings as isograms
+	if (Word.length() < 2) {
+		return true;
+	}
+
+	TMap<char, bool> LetterSeen;
+
+	for (auto Letter : Word){ //loop through word
+		
+		Letter = tolower(Letter); // handle mixed case
+		
+		if (LetterSeen[Letter]) {
+			return false; 
+		}
+		else {
+			LetterSeen[Letter] = true; //add to map
+		}
+
+	}
+
+	return true;
 
 }
 
