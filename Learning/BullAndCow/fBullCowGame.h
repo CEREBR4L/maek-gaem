@@ -1,6 +1,12 @@
+/*
+The game logic, no direct user interaction
+A simple guess the word game
+*/
+
 #pragma once
 #include <string>
 
+//UE4 Syntax
 using FString = std::string;
 using int32 = int;
 
@@ -32,17 +38,16 @@ public:
 	bool IsGameWon() const;
 	eGuessStatus CheckGuessValid(FString) const;
 
-	void Reset(); // todo make a more rich return vlaue
-
+	void Reset();
 	FBullCowCount SubmitValidGuess(FString);
 
 private:
 	//initilised in contstructor
 	int32 MyCurrentTry;
-	int32 MyMaxTries;
 	FString MyHiddenWord;
 	bool bGameWon;
 
 	bool IsIsogram(FString) const;
+	bool IsLowercase(FString) const;
 
 };

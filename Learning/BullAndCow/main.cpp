@@ -10,11 +10,13 @@
 
 */
 
+#pragma once
 
 #include <string>
 #include <iostream>
 #include "fBullCowGame.h"
 
+//UE4 syntax
 using FText = std::string;
 using int32 = int;
 
@@ -41,11 +43,17 @@ int main() {
 }
 
 
-//intro to game
 void PrintIntro() {
 
 	std::cout << std::endl << std::endl;
 	std::cout << "Welcome to Bulls and Cows, a fun word game.\n";
+	std::cout << std::endl;
+	std::cout << "          }   {         ___ " << std::endl;
+	std::cout << "          (o o)        (o o) " << std::endl;
+	std::cout << "   /-------\\ /          \\ /-------\\ " << std::endl;
+	std::cout << "  / | BULL |O            O| COW  | \\ " << std::endl;
+	std::cout << " *  |-,--- |              |------|  * " << std::endl;
+	std::cout << "    ^      ^              ^      ^ " << std::endl;
 	std::cout << "Can you guess the " << BCGame.GetHiddenWordLength();
 	std::cout << " letter isogram I am thinking of?\n";
 	std::cout << std::endl;
@@ -60,8 +68,7 @@ void PlayGame() {
 
 	int32 MaxTries = BCGame.GetMaxTries();
 
-	//loop asking for a guess while the game 
-	//is NOT WON and there is tries left
+	//loop asking for a guess while the game is NOT WON and there is tries left
 	while(!BCGame.IsGameWon() && BCGame.GetCurrentTry() <= MaxTries){
 
 		FText Guess = GetValidGuess();
@@ -91,30 +98,29 @@ FText GetValidGuess() {
 
 		int32 CurrentTry = BCGame.GetCurrentTry();
 
-		std::cout << "Try " << CurrentTry << ". Please enter your guess:";
+		std::cout << "Try " << CurrentTry << " of " << BCGame.GetMaxTries() << ".";
+		std::cout << " Enter your guess : ";
 		getline(std::cin, Guess);
 
 		Status = BCGame.CheckGuessValid(Guess);
 		switch (Status) {
 
 			case eGuessStatus::Incorrect_Length:
-				std::cout << "Please a " << BCGame.GetHiddenWordLength() << " letter word!" << std::endl;
+				std::cout << "Please a " << BCGame.GetHiddenWordLength() << " letter word!" << std::endl << std::endl;
 				break;
 
 			case eGuessStatus::Not_Isogram:
-				std::cout << "Please enter a valid Isogram (a word without repeating letters)!" << std::endl;
+				std::cout << "Please enter a valid Isogram (a word without repeating letters)!" << std::endl << std::endl;
 				break;
 
 			case eGuessStatus::Not_Lowercase:
-				std::cout << "Please make sure you enter the word in lowercase." << std::endl;
+				std::cout << "Please make sure you enter the word in lowercase." << std::endl << std::endl;
 				break;
 
 			default:
 				//assume guess valid
 				break;
 		}
-
-		std::cout << std::endl;
 
 	} while (Status != eGuessStatus::OK); //keep looping until a valid guess
 
@@ -123,7 +129,6 @@ FText GetValidGuess() {
 }
 
 
-//print the guess back to player.
 void PrintGuess(FText guess) {
 
 	//repeat the guess back to them

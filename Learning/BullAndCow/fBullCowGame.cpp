@@ -1,50 +1,31 @@
+#pragma once
+
 #include "fBullCowGame.h"
 #include <iostream>
 
 #include <map>
-#define TMap std::map
+#define TMap std::map //UE4 Syntax
 
-fBullCowGame::fBullCowGame() {
+using int32 = int; //UE4 Syntax
 
-	Reset();
-
-}
+//constructor and getters!
+fBullCowGame::fBullCowGame() { Reset(); }
+int32 fBullCowGame::GetCurrentTry() const { return MyCurrentTry; }
+int32 fBullCowGame::GetHiddenWordLength() const { return MyHiddenWord.length(); }
+bool fBullCowGame::IsGameWon() const { return bGameWon; }
 
 
 int32 fBullCowGame::GetMaxTries() const {
 
-	return MyMaxTries;
-
-}
-
-
-int32 fBullCowGame::GetCurrentTry() const {
-
-	return MyCurrentTry;
-
-}
-
-
-int32 fBullCowGame::GetHiddenWordLength() const {
-
-	return MyHiddenWord.length();
-
-}
-
-
-bool fBullCowGame::IsGameWon() const {
-
-	return bGameWon;
+	TMap<int32, int32> WordLengthToMaxTries{ {3, 4}, {4, 7}, {5, 9}, {6, 13}, {7, 18} };
+	return WordLengthToMaxTries[MyHiddenWord.length()];
 
 }
 
 
 void fBullCowGame::Reset() {
 
-	constexpr int32 MAX_TRIES = 8;
-	const FString HIDDEN_WORD = "planet";
-
-	MyMaxTries = MAX_TRIES;
+	const FString HIDDEN_WORD = "planet"; //this MUST be a isogram
 	MyHiddenWord = HIDDEN_WORD;
 
 	MyCurrentTry = 1;
@@ -59,8 +40,8 @@ eGuessStatus fBullCowGame::CheckGuessValid(FString Guess) const{
 	if (!IsIsogram(Guess)) {
 		return eGuessStatus::Not_Isogram;
 	}
-	else if (false) {
-		return eGuessStatus::Not_Lowercase; //TODO write function for this case
+	else if (!IsLowercase(Guess)) {
+		return eGuessStatus::Not_Lowercase;
 	}
 	else if (Guess.length() != GetHiddenWordLength()) {
 		return eGuessStatus::Incorrect_Length;
@@ -120,7 +101,7 @@ FBullCowCount fBullCowGame::SubmitValidGuess(FString Guess) {
 
 bool fBullCowGame::IsIsogram(FString Word) const {
 
-	//trat 0/1 letter strings as isograms
+	//treat 0/1 letter strings as isograms
 	if (Word.length() < 2) {
 		return true;
 	}
@@ -136,6 +117,20 @@ bool fBullCowGame::IsIsogram(FString Word) const {
 		}
 		else {
 			LetterSeen[Letter] = true; //add to map
+		}
+
+	}
+
+	return true;
+
+}
+
+bool fBullCowGame::IsLowercase(FString Word) const {
+
+	for (auto Letter : Word) {
+
+		if (!islower(Letter)) {
+			return false;
 		}
 
 	}
