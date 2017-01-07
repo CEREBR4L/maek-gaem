@@ -33,5 +33,9 @@ private:
 
 	//Release any currently grabbed object
 	void Release();
+
+	void FindPhysicsHandleComponent();
+	void SetUpInputComponent();
+	const FHitResult GetFirstPhysicsBodyInReach();
 		
 };
